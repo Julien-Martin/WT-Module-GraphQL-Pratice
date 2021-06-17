@@ -6,7 +6,7 @@ const query = gql`
     users: [User]!
     posts: [Post]!
     postVotes: [PostVote]!
-    postVote(id: Int!): PostVote
+    postVote(id: Int!): PostVote!
   }
 `;
 

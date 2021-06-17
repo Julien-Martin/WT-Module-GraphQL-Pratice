@@ -1,5 +1,5 @@
 const mutation = require('./mutation');
-// const subscription = require('./subscription');
+const subscription = require('./subscription');
 const misc = require('./misc');
 const query = require('./query');
 
@@ -11,7 +11,7 @@ const typeDefs = [
   userType,
   query,
   mutation,
-  // subscription,
+  subscription,
   misc,
 ];
 

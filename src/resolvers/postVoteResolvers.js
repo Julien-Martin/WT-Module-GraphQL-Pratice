@@ -1,3 +1,7 @@
+const { PubSub, withFilter } = require('apollo-server');
+
+const pubsub = new PubSub();
+
 const postVoteResolvers = {
   Query: {
     postVotes: (_, __, context) => context.prisma.postVote.findMany(),
@@ -8,11 +12,15 @@ const postVoteResolvers = {
     }),
   },
   Mutation: {
-    createPostVote: (_, args, context) => context.prisma.postVote.create({
-      data: {
-        ...args,
-      },
-    }),
+    createPostVote: async (_, args, context) => {
+      const postVote = await context.prisma.postVote.create({
+        data: {
+          ...args,
+        },
+      });
+      pubsub.publish('POST_VOTE_CREATED', { postVoteCreated: postVote });
+      return postVote;
+    },
     deletePostVote: (_, args, context) => context.prisma.postVote.delete({
       where: {
         id: args.id,
@@ -26,6 +34,11 @@ const postVoteResolvers = {
         vote: args.vote,
       },
     }),
+  },
+  Subscription: {
+    postVotesCreated: {
+      subscribe: () => pubsub.asyncIterator('POST_VOTE_CREATED'),
+    },
   },
 };
 
