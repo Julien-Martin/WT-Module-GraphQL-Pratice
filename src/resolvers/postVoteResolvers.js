@@ -40,6 +40,18 @@ const postVoteResolvers = {
       subscribe: () => pubsub.asyncIterator('POST_VOTE_CREATED'),
     },
   },
+  PostVote: {
+    user: (parent, __, context) => context.prisma.user.findUnique({
+      where: {
+        id: parent.userId,
+      },
+    }),
+    post: (parent, __, context) => context.prisma.post.findUnique({
+      where: {
+        id: parent.postId,
+      },
+    }),
+  },
 };
 
 module.exports = postVoteResolvers;
