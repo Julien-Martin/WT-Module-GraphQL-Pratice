@@ -6,6 +6,7 @@ const postType = gql`
     image: String
     content: String!
     user: User!
+    votes: [PostVote]
   }
 `;
 

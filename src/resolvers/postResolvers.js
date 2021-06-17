@@ -27,6 +27,11 @@ const postResolvers = {
         id: parent.userId,
       },
     }),
+    votes: (parent, __, context) => context.prisma.postVote.findMany({
+      where: {
+        postId: parent.id,
+      },
+    }),
   },
 };
 
