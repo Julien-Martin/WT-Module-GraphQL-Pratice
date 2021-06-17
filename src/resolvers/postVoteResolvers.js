@@ -18,7 +18,7 @@ const postVoteResolvers = {
           ...args,
         },
       });
-      pubsub.publish('POST_VOTE_CREATED', { postVoteCreated: postVote });
+      pubsub.publish('POST_VOTE_CREATED', { postVotesCreated: postVote });
       return postVote;
     },
     deletePostVote: (_, args, context) => context.prisma.postVote.delete({
