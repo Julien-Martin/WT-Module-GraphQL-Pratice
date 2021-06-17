@@ -5,6 +5,7 @@ const userType = gql`
     id: Int
     name: String! @deprecated(reason: "Bad reason")
     posts: [Post]!
+    votes: [PostVote]
   }
 `;
 
